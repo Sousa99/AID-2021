@@ -1,0 +1,15 @@
+/* SUMMING SALES GROUPED BY ARTIST AND YEAR */
+SELECT TRACKARTIST as Artist, YEAR_ID AS Year, SUM(LINETOTAL) AS SaleS
+FROM fact_invoice NATURAL JOIN 
+    dim_track NATURAL JOIN
+    dim_time 
+GROUP BY Artist, Year
+ORDER BY Sales DESC;
+
+/* COUNTING UNITS SOLD BY ALBUM AND COUNTRY  */
+SELECT TRACKALBUM as Album, COUNTRY AS Country, COUNT(*) AS Units
+FROM fact_invoice NATURAL JOIN 
+    dim_track NATURAL JOIN
+    dim_customer
+GROUP BY Album, Country
+ORDER BY Units DESC;
