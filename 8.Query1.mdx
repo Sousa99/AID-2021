@@ -1,0 +1,13 @@
+WITH
+SET [~COLUMNS_Customer_Customer Hierarchy] AS
+    {[Customer].[Customer Hierarchy].[France], [Customer].[Customer Hierarchy].[Italy], [Customer].[Customer Hierarchy].[Portugal], [Customer].[Customer Hierarchy].[Spain]}
+SET [~COLUMNS_Time_Time Hierarchy] AS
+    {[Time].[Time Hierarchy].[2012]}
+MEMBER [Measures].[Average Sales per Unit] AS
+    ([Measures].[Sales] / [Measures].[Quantity])
+SET [~ROWS] AS
+    {[Track].[Track Hierarchy].[Track Artist].Members}
+SELECT
+NON EMPTY CrossJoin(NonEmptyCrossJoin([~COLUMNS_Customer_Customer Hierarchy], [~COLUMNS_Time_Time Hierarchy]), {[Measures].[Sales], [Measures].[Quantity], [Measures].[Average Sales per Unit]}) ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [Invoices]

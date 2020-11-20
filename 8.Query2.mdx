@@ -1,0 +1,11 @@
+WITH
+SET [~COLUMNS_Customer_Customer Hierarchy] AS
+    {[Customer].[Customer Hierarchy].[Canada]}
+SET [~COLUMNS_Time_Time Hierarchy] AS
+    {[Time].[Time Hierarchy].[Year].Members}
+SET [~ROWS] AS
+    Hierarchize({{[Track].[Track Hierarchy].[Track Artist].Members}, {[Track].[Track Hierarchy].[Track Album].Members}})
+SELECT
+NON EMPTY CrossJoin(NonEmptyCrossJoin([~COLUMNS_Customer_Customer Hierarchy], [~COLUMNS_Time_Time Hierarchy]), {[Measures].[Sales]}) ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [Invoices]
