@@ -1,0 +1,8 @@
+WITH MEMBER Measures.[Average Sales per Unit] AS (Measures.Sales / Measures.Quantity)
+     SET [Mediterranean Countries] AS {Customer.Country.France,
+                                       Customer.Country.Italy,
+                                       Customer.Country.Portugal,
+                                       Customer.Country.Spain}
+SELECT [Mediterranean Countries] * Time.[2012] * Measures.AllMembers ON COLUMNS,
+       NON EMPTY Track.[Track Artist].Members ON ROWS
+FROM Invoices

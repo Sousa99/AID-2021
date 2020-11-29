@@ -1,0 +1,3 @@
+SELECT Customer.Country.Canada * Time.Year.Members * Measures.Sales ON COLUMNS,
+       NON EMPTY DESCENDANTS(Track.[Track Artist].Members, Track.[Track Album], SELF_AND_BEFORE) ON ROWS
+FROM Invoices
